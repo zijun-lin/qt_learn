@@ -10,9 +10,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->rBtnBlue,SIGNAL(clicked()),this,SLOT(setTextFontColor()));
     connect(ui->rBtnRed,SIGNAL(clicked()),this,SLOT(setTextFontColor()));
     connect(ui->rBtnBlack,SIGNAL(clicked()),this,SLOT(setTextFontColor()));
-    ShowChat();
+//    ShowChat();
 
-
+    QCustomPlot *cplot = new QCustomPlot;
+    QCPCurveDisplay(ui->customPlot);
+    ui->customPlot->xAxis->setRange(-5, 5);
+    ui->customPlot->yAxis->setRange(-5, 5);
 }
 
 void MainWindow::ShowChat()
@@ -39,6 +42,23 @@ void MainWindow::ShowChat()
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::QCPCurveDisplay(QCustomPlot *custom_plot)
+{
+    QCPCurve *fermat_spiral = new QCPCurve(custom_plot->xAxis,
+                                           custom_plot->yAxis);
+    const int point_count = 500;
+    QVector<QCPCurveData> data(point_count);
+    for (int i = 0; i < point_count; ++i) {
+        double phi = i / (double)(point_count - 1) * 8 * M_PI;
+        double thwta = i / (double)(point_count - 1) * 2 * M_PI;
+        data[i] = QCPCurveData(i, qSqrt(phi)*qCos(phi),
+                                          qSqrt(phi)*qSin(phi));
+    }
+    fermat_spiral->data()->set(data);
+    fermat_spiral->setPen(QPen(Qt::blue));
+    fermat_spiral->setBrush(QColor(0,0,255,20));
 }
 
 void MainWindow::on_chkBoxUnder_clicked(bool checked)

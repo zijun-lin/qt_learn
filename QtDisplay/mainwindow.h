@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <qcustomplot.h>
 
 namespace Ui {
 class MainWindow;
@@ -15,17 +16,14 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void ShowChat();
+    void QCPCurveDisplay(QCustomPlot *custom_plot);
 
 
 private slots:
     void on_chkBoxUnder_clicked(bool checked);
-
     void on_chkBoxItalic_clicked(bool checked);
-
     void on_chkBoxBold_clicked(bool checked);
-
     void setTextFontColor();
-
     void on_btnOK_clicked();
 
 private:
