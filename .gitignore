@@ -1,1 +1,4 @@
-qt_learn.pro.user
+*/*.pro.user
+*/*.user.4.8-pre1
+
+build-*/
